@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+\author{Matteo Paz, Dylan Rupel}
+\date{December 5, 2023}
+\title{Normal Distributions}
+
+\begin{document}
+\maketitle{}
+
+\section{Basic Formulation}
+\subsection{An Experiment - Assumptions}
+Picture a dartboard in the $xy$-plane with the bullseye at the origin. 
+Let $(X,Y)$ be the location where the dart lands.
+\vspace{0.25em}
+Let's make some assumptions.
+\begin{enumerate}
+    \item \textbf{Rotational invariance}:
+    The \emph{deviation} from the origin only depends of the distance from the origin and not on the direction.
+    \item \textbf{Distribution}: $X$ and $Y$ are independent random variables.
+\end{enumerate}
+\vspace{0.25em}
+\subsection{What kind of function is this?}
+Let $\tilde f: \enspace \mathbb{R}^2 \to \mathbb{R}$ denote the probability density function.
+Assumption (1) implies that $\tilde f (x,y) = g(x^2 + y^2)$ for some function $g$, with the squared sum representing
+the invariance under rotation. Assumption (2) $\tilde f(x,y) \propto \tilde f(x,0)f(0,y)$ as independent random events
+must multiply. If we reframe into the perspective of the single-variable function $g$, we have
+\[g(x^2 + y^2) = g(x^2)g(y^2)\]
+The kinds of functions that have this property are exponentials, so we can say:
+\[g(t) = Ae^{-Bt} \qquad A, B \in \mathbb{R}_{> 0}\]
+With the added factor of $-1$ because we are aiming for the center,
+so the probability should be greatest at low distances from the center, rather than the opposite.
+We can decide on the value of $A$ and $B$ by forcing the entire volume of the probability to $1$, as it should be:
+\[1 = \iint_{\mathbb{R}^2} \tilde f(x,y) dx dy = \iint_{\mathbb{R}^2} g(x^2+y^2) dxdy\]
+
+\subsection{Using the Jacobean}
+To simplify this integral, we should respect the rotational symmetry and rewrite in terms of
+polar coordinates, $r$ and $\theta$.
+\[x = r \cos(\theta) \quad y = r \sin(\theta)\]
+It's not possible to provide thorough justification for this particular step, but a useful tool in this
+integration is the wedge operation $\wedge$. The key properties are:
+\begin{itemize}
+    \item We can replace $dxdy$ with $dx\wedge dy$
+and vice versa without issue. 
+
+    \item It is skew-symmetric: $dx \wedge dy$ = $- \left(dy \wedge dx\right)$
+    
+    \item $dx \wedge dx = 0$ (consequence of the previous property)
+\end{itemize}
+
+Lets use the wedge operator to replace $dxdy$ in the integral:
+\begin{align*}
+    dx\wedge dy &= (\cos(\theta)dr - r\sin(\theta)d\theta)\wedge(\sin(\theta)dr + r\cos(\theta)d\theta) \\
+    &= r\cos^2(\theta)dr\wedge d\theta - r \sin^2(\theta) d\theta \wedge dr \\
+    &= r\left(\cos^2(\theta) + \sin^2(\theta)\right) dr \wedge d\theta \\
+    &= r dr \wedge d\theta
+\end{align*}
+
+
+Now we have our substitution, so rewriting our integral with new bounds $0 \leq \theta \leq 2\pi$ and $r \geq 0$ we have 
+
+\[\int_{0}^{2\pi}\int_{0}^{\infty} g(r^2) \enspace r dr d\theta\]
+Lets perform the calculation:
+\begin{align*}
+    &= 2\pi \int_{0}^\infty Ar e^{-Br^2} dr \\
+    &=\left[\frac{-2\pi A}{2B} e^{-Br^2}\right]^\infty_0 \\
+    &= \frac{\pi A}{B} = 1
+\end{align*}
+So $A = \frac{\pi}{B}$ and finally we have the probability distribution based on a single parameter $B$:
+\[\tilde f(x,y) = \frac{B}{\pi} e^{-B(x^2 + y ^2)}\]
+By assumption 2, we can factor this. Naturally we could have:
+\[f(x) = \sqrt{\frac{B}{\pi}} e^{-Bx^2}\]
+We don't necessarily yet know that this is a probability distribution. The proof of this is contained already in 
+these notes, and the explicit procedure is left to the reader. \emph{Hint: Use the fact that the only nonzero idempotent is 1}.
+However, once we prove that it is, this is the general form of the normal distribution.
+
+\subsection{Expectation}
+
+Lets compute $E[X]$ for random variable $X$ with probability density function $f(x) = \sqrt{\frac{B}{\pi}} e^{-Bx^2}$
+\[\int_{\mathbb{R}} x f(x) dx = \int_{-\infty}^\infty \sqrt{\frac{B}{\pi}} x e^{-Bx^2}dx\]
+\[\left[-\frac{1}{2\sqrt{B\pi}}e^{-Bx^2}\right]_{-\infty}^{\infty}\]
+\[E[X] = 0\]
+
+
+\end{document}
