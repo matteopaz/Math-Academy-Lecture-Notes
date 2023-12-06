@@ -4,6 +4,8 @@
 \date{December 5, 2023}
 \title{Normal Distributions}
 
+\newtheorem{shiftproof}{Shifted normal distributions}
+
 \begin{document}
 \maketitle{}
 
@@ -79,6 +81,42 @@ Lets compute $E[X]$ for random variable $X$ with probability density function $f
 \[\int_{\mathbb{R}} x f(x) dx = \int_{-\infty}^\infty \sqrt{\frac{B}{\pi}} x e^{-Bx^2}dx\]
 \[\left[-\frac{1}{2\sqrt{B\pi}}e^{-Bx^2}\right]_{-\infty}^{\infty}\]
 \[E[X] = 0\]
+
+\subsection{Variance}
+
+Lets find the variance for this general normal distribution, based on the parameter $B$.
+First we need to find the second moment $E[X^2]$
+\[E[x^2] = \int_{-\infty}^\infty x^2 f(x) dx = \int_{-\infty}^\infty x^2 \sqrt{\frac{B}{\pi}}e^{-Bx^2}dx\]
+Using integration by parts, choose $u=x \quad dv = \sqrt{\frac{B}{\pi}} xe^{-Bx^2}$. Then $du = dx \quad v = -\frac{1}{2\sqrt{B\pi}}e^{-Bx^2}$
+\[uv - v\int du = \left[-1\frac{1}{2\sqrt{B\pi}}xe^{-Bx^2}\right]^\infty_{-\infty} + \frac{1}{2\sqrt{B\pi}} \int^\infty_{-\infty} e^{-Bx^2} dx\]
+The integral on the right must be $\sqrt{\frac{\pi}{B}}$ since we already found $f(x)$ to be a probability density function.
+\[ 0 + \frac{1}{2\sqrt{B\pi}}\cdot \sqrt{\frac{\pi}{B}} \]
+\[E[X^2] = \frac{1}{2B}\]
+
+Finally
+\[\text{Var}(X) = E[X^2] - (E[X])^2 \]
+\[\text{Var}(X) = \frac{1}{2B}\]
+If you want to reparametrize the normal distribution, controlling for the standard deviation $\sigma$, you could thus use $B = \frac{1}{2\sigma^2}$
+\[f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^\frac{-x^2}{2\sigma^2}\]
+If you want to modify the mean to be at $x=\mu$, Then
+\[f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^\frac{-(x-\mu)^2}{2\sigma^2}\]
+
+\section{Shifting}
+\emph{Proposition.}
+Let $X$ be normal with mean $\mu$ and variance $\sigma^2$, then $aX+b$ is also normal, with mean $a\mu + b$ and variance $a^2\sigma^2$.
+\vspace{0.55em}
+
+\textbf{Proof.}
+Variance:
+\[\text{Var}(aX+b) = E[(aX+b)^2] - E[aX+b]^2\]
+\[E[a^2 X^2 + 2abX + b^2] - E[aX+b]^2\]
+\[a^2 E[X^2]+ 2abE[X] + b^2 - (aE[X]+b)^2\]
+\[a^2 E[X^2]+ 2abE[X] + b^2 - a^2 E[X]^2 - 2abE[X] - b^2\]
+\[a^2 ( E[X^2] - E[X]^2 ) = a^2 \sigma^2 \checkmark \]
+Mean:
+\[E[aX+b] = aE[X]+b = a\mu + b \checkmark\]
+$\square$
+
 
 
 \end{document}
