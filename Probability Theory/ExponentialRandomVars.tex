@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+
+\newtheorem{Def}{Definition}
+\newtheorem{Proof}{Proposition}
+
+\author{Matteo Paz, Dylan Rupel}
+\date{December 7, 2023}
+\title{Exponential Random Variables}
+
+\begin{document}
+\maketitle
+
+\section{Formulation}
+\begin{Def}
+A nonnegative random variable $X$ is \underline{memoryless} if
+\[P\{X > s+t | X > t\} = P \{X > s\}\]
+\end{Def}
+
+Lets work with this. We know how to rewrite this conditional probability:
+\[\frac{P\{X > s + t, X > t\}} {P\{X > t\}} = P\{X > s\}\]
+Because $X> s+t$ implies that $X>t$ already,
+\[P\{X > s+t\} = P\{X>s\}P\{X>t\}\]
+Define $\overline{F}(x) = P\{X > x\}$. Then a memoryless random variable gives:
+\[\overline{F}(s+t) = \overline{F}(s) \overline{F}(t)\]
+\begin{Proof}
+Let $g(x)$ be a continuous nonnegative function which satisfies $g(s+t) = g(s)g(t)$ for $s,t \in \mathbb{R}_{\geq 0}$.
+Then $g(x)$ is an exponential function.
+\end{Proof}
+\textbf{Proof} \\
+\[g(1) = g\left(n \cdot \frac{1}{n}\right) = g\left(\frac{1}{n}\right)^n \implies g\left(\frac{1}{n}\right) = g(1)^\frac{1}{n}\]
+\[g(n) = g(1)^n\]
+For all $n \in \mathbb{Q}$. However, any real number is the limit of a sequence of rational numbers.
+Let $x \in \mathbb{R}$ and $(x_i)$ a sequence of rationals converging to $x$. Using the continuity of $g(x)$ to move the limit around...
+\[g(x) = g\left(\lim_{i\to\infty} x_i\right) =\lim_{i\to\infty} g(x_i) = \lim_{i\to\infty} g(1)^{x_i} \]
+\[= \left(g(1)\right)^{\lim_{i\to\infty} x_i} = g(1)^x\]
+
+We can express this directly as 
+\[g(x) = e^{-\lambda x}\]
+where $\lambda = -\ln(g(1)) \square$
+\vspace{4em}
+
+Finally then, we can express $\overline{F}(x) = e^{-\lambda x}$ for some $\lambda \in \mathbb{R}$.
+From this, we know the CDF is $F(x) = 1-e^{-\lambda x}$. The probability distribution function is then the derivative, giving:
+\[f(x) = \frac{d}{dx} F(x) = \lambda e^{-\lambda x}\]
+
+
+
+\end{document}
