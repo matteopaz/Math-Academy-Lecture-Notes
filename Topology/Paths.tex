@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+\usepackage{base}
+
+\author{Matteo Paz, Dylan Rupel}
+\date{February 27th, 2024}
+\title{Paths}
+
+
+\begin{document}
+\maketitle
+\begin{definition}
+    A path in a topological space $Y$ is a continuous mapping from $[0,1] \to Y$.
+\end{definition}
+
+Intuitively, a path is just a line or curve in your topological space. We define it to be homeomorphic
+to the real interval $[0,1]$. If we have two paths $p_1$ and $p_2$, we can also concatenate or merge
+them naturally, given that the endpoint $p_1(1) = p_2(0)$:
+\[
+p_1 * p_2 = 
+\begin{cases} 
+    p_1(2t) & \text{if} \quad 0 \leq t \leq \frac{1}{2} \\
+    p_2(2t) & \text{if} \quad \frac{1}{2} \leq t \leq 1
+\end{cases}
+\]
+
+Using this we can define a natural equivalence relation, in which all points which are path-connected
+are considered as a group:
+\begin{proposition}
+    $x_1 \sim x_2$ if there exists a path $p: [0,1] \to X$ with $p(0) = x_1$ and $p(1) = x_2$ gives
+    an equivalence relation
+\end{proposition}
+\pf
+\begin{enumerate}
+    \item Reflexive: For $x \in X$, the path $p(t) = x$ for all $t \in [0,1]$ satisfies.
+    \item Symmetric: If $x \sim x'$ then there is a path $p: x \to x'$. If we define $p'(t) = 1-p$, then $p'(0) = x'$ and $p'(1) = x$
+    \item Transitive: If $x \sim x'$ and $x' \sim x''$, then simply concatenate the respective paths with the aforementioned construction so that $p * p': x \to x''$
+\end{enumerate}
+
+Thus, path-connectedness is an equivalence relation.
+
+\end{document}

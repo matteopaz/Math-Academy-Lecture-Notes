@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts, amssymb}
+
+\author{Matteo Paz, Dylan Rupel}
+\date{January 8, 2024}
+\title{Combinatorics}
+
+\begin{document}
+\maketitle{}
+\section{Counting Organized Data - The Twelvefold Way}
+\emph{\underline{Goal}} - Count the number of functions between multi-sets (Some elements may be identical).
+\begin{itemize}
+    \item How many surjective functions exist between $\{1,2,3,4,5\}$ to $\{a,b,c\}$?
+\end{itemize}
+We could try to list them all, but there should be a way to take advantage of the structure. Given that 
+we are considering a multi-set, lets generalize to: \\
+$\{1,2,3,4,5\} \to \{\cdot, \cdot, \cdot\}$ Where each dot can be thought of as a bucket. It doesnt matter necessarily which bucket
+a number is being placed in, but how many and which went in each of the 3 baskets.
+\vspace{1em}
+
+\subsection{The Twelvefold Way}
+
+There turns out to be 12 major classifications of mappings between sets. The number of such functions for each classification is a
+very useful tool when counting. Let us map
+$N \to X$, with $|N| = n, |X| = x$.
+
+$\begin{array}{c|c|c|c}
+& \text{Functions} & \text{Injective} & \text{Surjective} \\ \hline
+\substack{\text{Distinguishable Domain and Codomain}} & x^n & x^{\underline{n}} & x!{n \brace x} \\ \hline
+\substack{\text{Indistinguishable Domain, Dist. Codomain}} & {n + x - 1 \choose x - 1} & {x \choose n} & \\ \hline
+\substack{\text{Dist. Domain, Indist. Codomain}} & \sum^x_{k=1} {n \brace k} & [n \leq x] & {n \brace x} \\ \hline
+\substack{\text{Indist. Domain and Codomain}} & & [n \leq x] & \\ \hline
+\end{array}$
+
+\subsection*{Distinguishable Functions}
+The top-left entry is $x^n$. This is because in identifying a function of this type, you have $x$ choices of a preimage for $n$ choices of an image.
+\subsection*{Distinguishable and Injective Functions}
+Very similar to non-injective functions, but every output must be unique. Thus having $x$ choices for your first element to map, then
+$x-1$, $n$ times gives $x(x-1)\cdots(x-n+1)$ choices in all. This is the falling factorial function $x^{\underline{n}}$
+\subsection*{Injective and Indistinguishable Functions}
+The notion of an indistinguishable domain or codomain is that if you mess around with order or specificity, it makes no difference. So 
+we should look at the ways you can permute either of the sets. Let $S_N$ denote the group of permutations on $N$. Let $X^N$ denote the set of all functions $F: N \to X$.
+\vspace{0.5em}
+
+Define a group action $S_N \circlearrowright X^N$ by $(\sigma \cdot f)(n) = f(\sigma^{-1}(n))$. Notice that this is in fact an action as associativity holds:
+\[((\sigma \circ \tau) \cdot f)(n) = f(\tau^{-1}(\sigma^{-1}(n))) = (\sigma \cdot (\tau \cdot f))(n)\]
+And $\text{Id} \in S_N$ works as an identity in this setting as well.
+\vspace{0.5em}
+Lets prove that $S_N \circlearrowright \text{Inj}(X^N)$ is a free action. If $f \in X^N$ is injective
+and $\sigma \cdot f = f$, then $(\sigma \cdot f)(n) = f(n)$. 
+\[f(\sigma^{-1}(n)) = f(n)\]
+\[n = \sigma(n)\]
+\[\sigma = \text{Id}\]
+Thus $\text{Stab}_{S_N}(f) = \{Id\}$ and the action is free. By the Orbit-Stabilizer theorem,
+\[\left| {\text{Inj}(X^N)} / {S_N} \right| = \frac{x^{\underline{n}}}{n!}\]
+This can be rewritten as ${x \choose n}$.
+\vspace*{1em}
+
+Finally, for injective functions with an indistinguishable codomain, it really doesnt matter where 
+you map $N$, as long as you can without overlap. Thus, for the last two rows, we have the condition that the
+codomain has enough room for $X: [n \leq x]$
+
+\section{Surjective functions}
+Start with a distinguishable domain $N$ and indistinguishable $X$. The order in which you group $N$ to go to $X$ does not matter, just that
+there are $x$ nonempty groups that then map to different baskets of $X$. Since the entirety of $N$ must be included as the domain, we know that we
+must partition $N$ into $x$ partitions, which is given by this notation ${n \brace x}$. These are called stirling numbers of the second kind.
+\vspace*{0.5em}
+
+If we have a distinguishable codomain once again, we can just multiply by our options of order: $x!$. Thus the
+number of surjective functions between sets is $x! {n \brace x}$. \vspace*{0.5em}
+
+Carrying over to all functions from dist $N$ to indist $X$, not just surjective ones, is equivalent to partitioning the set
+in a number of different ways, from one element in $X$ to all elements in $X$. Therefore we sum the ways to partition the domain:
+\[\sum^n_{k=1} {n \brace k}\]
+
+
+\section{Indistinguishable Domain and Codomain}
+
+This row has the least amount of structure. The injective functions were simple to think about,
+but regular functions and surjective functions have very little structure, and thus are hard
+to give a closed form for. In a similar way to the previous row, if we can find the number
+of surjective functions onto $x$ elements, we can simply sum this value up for all possible sizes
+of a function's image from 1 to $x$ to count how many functions there are in total.
+\vspace{1em}
+\subsection{Partitions}
+A \emph{partition} of $n \in \mathbb{N}$ is a decreasing sequence $a_1, \cdots, a_k \in \mathbb{N}$
+such that $\sum^k_{i=0} a_i = n$.
+
+\vspace{1em}
+If we consider surjective mappings from $n$ to $x$ indistinguishable elements, the only way to
+identify a unique function is by the sizes of the subsets in its preimage partition. For $k=x$ elements, we identify
+that these functions have a bijection with the partitions of $n$ into $x$ elements, because all $n$ must
+be grouped into one of the preimages and there are $x$ elements that the preimages are generated from.
+
+\end{document}

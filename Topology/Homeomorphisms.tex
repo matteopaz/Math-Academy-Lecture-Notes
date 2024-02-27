@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+
+
+\newcommand{\RR}{\mathbb{R}}
+\newtheorem{definition}{Definition}
+
+\author{Matteo Paz, Dylan Rupel}
+\date{February 20th, 2024}
+\title{Homeomorphisms}
+
+\begin{document}
+\maketitle{}
+
+\begin{definition}
+A continuous bijective function $f: X \to Y$ is a \underline{homeomorphism} if $f^{-1}$ is also
+continuous. $X$ and $Y$ are homeomorphic if there exists a homeomorphism between them.
+\end{definition}
+
+\textbf{Example 1}
+Consider the function $e^x: \RR \to \RR_{\geq 0}$. This is continuous, surjective (onto positive reals), and 
+injective. Equally the inverse $\ln(x)$ is continuous injective and surjective. Thus $\RR$ and $\RR_{\geq 0}$ 
+are homeomorphic. Thus they are homeomorphic topological spaces.
+\vspace{1em}
+
+\textbf{Example 2} Consider the spaces $[0, 2\pi) \subset \RR$ and $S' \in \mathbb{C}$ (the complex unit circle).
+We have the function $f(x) = e^{ix}$ between them. If our open sets in $S'$ are just arcs from angle $a$ to $b$, then
+our preimage is $(a,b)$ in $[0, 2\pi)$. If the arc contains $0$, we just take the disjoint union $[0,a) \sqcup (b, 2\pi)$.
+These are open sets from $f^{-1}$, thus $f$ is continuous. However, $f^{-1}$ is not continuous, because $[0, a)$ is open on
+$[0, 2\pi)$, but under the action of $f = {f^{-1}}^{-1}$, it generates the non-open arc containing its endpoint $0$. Thus we 
+cannot say that $[0, 2\pi)$ and $S'$ are homeomorphic.
+
+\end{document}

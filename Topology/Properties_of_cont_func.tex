@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\pf}{\noindent \textbf{Proof} \\}
+\newcommand{\inv}{^{-1}}
+\newtheorem{definition}{Definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{proof}{Proof.}
+
+\author{Matteo Paz, Dylan Rupel}
+\date{February 21, 2024}
+\title{Properties of Continuous Functions}
+
+\begin{document}
+\maketitle{}
+
+\begin{thm}
+Suppose $f: X \to Y$ is a continuous function and $g: Y \to Z$ is also a continuous function. Then
+$g \circ f$ is a continuous function.
+\end{thm}
+\pf 
+Suppose there is an open set $\omega \in Z$. Then $g\inv \omega$ is an open set. Then $f\inv (g\inv (\omega))$ is an open
+set. Thus open sets in $Z$ under the action of $f\inv \circ g\inv$ are open in $X$, so $g \circ f$ is continuous.
+\vspace{2em}
+\end{document}

@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+
+\newcommand{\RR}{\mathbb{R}}
+
+\author{Matteo Paz, Dylan Rupel}
+\date{February 14 2024}
+\title{Continuous Functions}
+
+\begin{document}
+\maketitle{}
+
+\noindent
+\textbf{def} $f: \RR \to \RR$ is continuous at $a$ if for any $\varepsilon > 0$, $\exists \delta > 0$ such that
+$|x - a| < \delta \implies |f(x) - f(a)| < \varepsilon$
+
+\vspace{1em}
+\noindent
+\textbf{def} A metric space $(X,d)$ is a set $X$ together with a function $d: X \times X \to \RR_{\geq 0}$
+with properties:
+\begin{enumerate}
+    \item Symmetric $d(x,x') = d(x', x)$
+    \item Identity $d(x,x') = 0 \iff x = x'$
+    \item Triangular $d(x, x') + d(x', x'') \geq d(x,x'')$
+\end{enumerate}
+\vspace{1em}
+\noindent
+\textbf{def} Let $(X, d), (Y, p)$ be metric spaces. A function $f: X \to Y$ is continuous 
+if for all $\varepsilon > 0$, $\exists\delta > 0$ such that $d(x,x') < \delta$ implies that $p(f(x), f(x')) < \varepsilon$.
+\vspace{1em}
+
+\textbf{Example:} Consider $(\RR, |\cdot - \cdot|)$, the number line with the standard euclidean metric, and $(\mathbb{C}, d)$, defined by $d(e^{it}, e^{it'}) = |t-t'|$. \\
+\vspace{1em}
+
+Prove that $t \in \RR \to \cos(t) + i\sin(t)$ is a continuous function. \\
+\emph{Pf:}
+Choose $\varepsilon > 0$ and $\delta = \varepsilon$. Let $|t - t'| < \delta$. Then $f(t), f(t')$ are $e^{it}, e^{it'}$. \\
+$d(e^{it}, e^{it'}) = |t - t'| < \delta = \varepsilon$. Thus $f$ is continuous.
+
+\vspace{2em}
+Now, we can rephrase this into purely topological terms and get rid of metric spaces:
+
+\textbf{Thm:} $f: X \to Y$ is continuous if and only if $f^{-1} (V)$ is open in $X$ for
+any open $V \subseteq Y$.
+
+\emph{Proof:} Assume $f$ is cont. Let $x \in f^{-1}(V)$. Then $f(x) \in V$. Since $V$ is open and $f$ is cont., we know
+that there exists a neighborhood $B\subseteq V$ containing $f(x)$, which corresponds to a neighborhood $C \subset f^{-1}(V)$ containing $x$. Thus $f^{-1}(V)$ is an 
+open set. \\
+Assume $f^{-1}(V)$ is open. Let $x \in X$ and choose any open neighborhood $B$ around $f(x)$. Then $f^{-1}(B)$ is open as well, with $x \in f^{-1}(B)$. Thus since its open, there exists a smaller neighborhood $C \subset f^{-1}(B) \subset X$. Thus if we choose neighborhood $C$ around $x$, we can guarantee that the image is inside of neighborhood $B$ in the image. Thus $f$ is continuous.
+\newpage
+
+Suppose $(Y,p)$ is a metric space and $f: X \to Y$ is any function from a set $X$ to $Y$. Our goal is to
+define a metric $d$ on $X$ such that $f$ is continuous. \vspace{0.5em}
+
+Define $d: X \times X \to \RR$ by $d(x_1, x_2) = p(f(x_1), f(x_2))$. Essentially we just map the x
+points to the codomain and ask what their distance is there, leveraging the fact we already know $p$.
+\underline{Check:}
+\begin{enumerate}
+    \item $d(x,x') \sim p \geq 0 \checkmark$
+    \item $d(x,x') = p(f(x), f(x')) = p(f(x'), f(x)) = d(x',x) \checkmark$
+    \item $d(x,x') = 0 \implies p(f(x), f(x')) = 0 \implies f(x) = f'(x)$ ?
+    \item $d(x, x') + d(x', x'') = p(f(x), f(x')) + p(f(x'), f(x'')) \geq p(f(x), f(x'')) = d(x,x'') \checkmark$
+\end{enumerate}
+
+Therefore, if we want this metric to be possible, we either need to have an injective function, or work on an equivalence
+relation $x \sim x' \iff f(x) = f(x')$ so that property 3 is satisfied.
+
+\end{document}
