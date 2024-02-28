@@ -37,6 +37,50 @@ are considered as a group:
     \item Transitive: If $x \sim x'$ and $x' \sim x''$, then simply concatenate the respective paths with the aforementioned construction so that $p * p': x \to x''$
 \end{enumerate}
 
-Thus, path-connectedness is an equivalence relation.
+Thus, path-connectedness is an equivalence relation. How does this relate to regular connectedness though?
+
+\begin{proposition}
+    If $X$ is path connected, then $X$ is connected.
+\end{proposition}
+\pf
+
+Assume $X$ is disconnected and path connected, thus $X = A \sqcup B$ for disjoint open sets $A,B \subseteq X$. Let $x \in A$ and $y \in B$. Let there be a path
+$p: x \to y$. Since paths are continuous functions, $p^{-1}(A) \sqcup p^{-1}(B) = [0,1]$ with the preimages being open. However, the interval $[0,1]$ is 
+connected. Thus we reach a contradiction, and $X$ must then be connected. \done
+
+\vspace{1em}
+
+So, we can conclude that the condition of path-connectedness is a stronger statement than connetedness. However, we used a hidden lemma in that last proof:
+\begin{proposition}
+    $[0,1]$ is connected.
+\end{proposition}
+\pf Assume that $[0,1]$ is disconnected and is equal to the disjoint union of open sets $A,B$. WLOG assume that $1$ lies in $B$.
+Let $x = \sup(A)$. Any interval around $x$ would contain points greater than $\sup(A)$. Therefore $x$ is not an open point for $A$, and $x \not \in A$. Also, any 
+interval around $x$ would contain points less than $x$, which are thus in $A$. Therefore $x$ is not an open point for $B$ and $x \not in B$.
+Thus $\sup(A)$ is in $X$ but not included in $A\sqcup B$. This is a contradiction, so $[0,1]$ is connected.
+\vspace{1em}
+
+\begin{definition}
+    A topological space $X$ is locally path connected if every point has an open neighborhood which is path connected.
+\end{definition}
+
+\begin{theorem}
+    Let $X$ be a locally path connected topological space. Then $X$ is path connected if and only if 
+    $X$ is connected.
+\end{theorem}
+\pf
+$\mathbf{\implies}$ \\
+Already shown that path connectedness implies connected. \\
+
+$\mathbf{\impliedby}$
+Using the equivalence relation for paths earlier, we call such a space a
+\emph{path component}, a set where all elements are reachable by path. Let $A$ be a path component.
+Let $a \in A$. Then since $X$ is locally path connected, there is an open neighborhood $a \in U$ that is path connected.
+Thus there exists a path from any point in $A$ to $a$, then from $a$ to any point in $U$. So all of $U$ is reachable from all of
+$A$. Thus $U \subseteq A$. Thus $A$ is open.
+\vspace{0.5em}
+
+If there were more than one path component, e.g. any points were not reachable by path, then this would give an open partition of $X$, and $X$
+could not be connected. Thus locally path connected and connected implies path connectedness. \done
 
 \end{document}
