@@ -1,0 +1,109 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+\usepackage{base}
+
+\newcommand{\pj}{\text{\normalfont proj}}
+
+\author{Matteo Paz, Dylan Rupel}
+\date{April 18, 2024}
+\title{Orthonormal Eigenbases}
+
+\begin{document}
+    \maketitle{}
+    \noindent
+
+    \begin{definition}
+        Let $A$ be a $n \times n$ matrix with real entries. An eigenvector $\bfv \in \RR^n$ of $A$ with eigenvalue $\lambda$ is a nonzero vector such that:
+        \[A\bfv = \lambda \bfv\]
+    \end{definition}
+
+    Lets make an attempt to find the eigenvalues and eigenvectors for
+    \[A = \begin{bmatrix}
+        2 & 3 & 1 \\
+        -1 & -2 & -1 \\
+        1 & 3 & 2
+    \end{bmatrix}\]
+
+    Following from the definition of an eigenvector:
+    \begin{align}
+    A\bfv = \lambda \bfv \implies (A - \lambda I)\bfv = 0 \\
+    \iff \det{A - \lambda I} = 0
+    \end{align}
+
+    First we find the eigenvalues:
+
+    \[\det{\begin{bmatrix}
+        2 - \lambda & 3 & 1 \\
+        -1 & -2-\lambda & -1 \\
+        1 & 3 & 2 - \lambda
+    \end{bmatrix}} = -\lambda(\lambda - 1)^2
+    \]
+    \[\implies \lambda = 0,1\]
+
+    Now, using equation (1), we can find all vectors for each eigenvalue. First assume $\lambda = 0$. This finds the original kernel.
+
+    \[\ker \begin{bmatrix}
+       2 & 3 & 1 \\ 
+       -1 & -2 & -1 \\
+       1 & 3 & 2 
+    \end{bmatrix} \implies \ker \begin{bmatrix}
+        1 & 0 & -1 \\
+        0 & 1 & 1 \\
+        0 & 0 & 0
+    \end{bmatrix} \implies \operatorname{Span}\left\{\vect{1 \\ -1 \\ 1}\right\}\]
+
+    Now assume $\lambda = 1$
+
+    \[\ker \begin{bmatrix}
+        1 & 3 & 1 \\
+        -1 & -3 & -1 \\
+        1 & 3 & 1
+    \end{bmatrix} \implies \ker \begin{bmatrix}
+        1 & 3 & 1 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0
+    \end{bmatrix} \implies \operatorname{Span}\left\{\vect{-3 \\ 1 \\ 0}, \vect{-1 \\ 0 \\1}\right\}\]
+
+    Now we have our eigenvectors. By inspection, there are 3 and they are linearly independent. Thus, we have a basis of eigenvectors. What if we wanted this to be orthonormal as well?
+    Given this basis, we can form an orthonormal basis using the Gram-Schmidt process:
+
+    \[\left\{\vect{-3 \\ 1 \\ 0}, \vect{-1 \\ 0 \\1}, \vect{1 \\ -1 \\ 1}\right\}\]
+    The calculation results in 
+    \[\left\{\vect{\frac{-3}{\sqrt{10}} \\ \frac{1}{\sqrt{10}} \\ 0}, \vect{\frac{-1}{\sqrt{110}} \\ \frac{-3}{\sqrt{110}} \\\frac{10}{\sqrt{110}}}, \vect{\frac{1}{11} \\ \frac{-3}{11} \\ \frac{-1}{11}}\right\}\]
+
+    Notice that while doing the calculation (if you kept our order of basis vectors), the first and second resulting vectors are linear combinations of eigenvectors from the $V_1$ eigenspace, and the third vector is a linear combination of eigenvectors from the $V_1$ and $V_0$ eigenspaces. Let's check the result of this:
+
+    \begin{align}
+        A\vect{\frac{-3}{\sqrt{10}} \\ \frac{1}{\sqrt{10}} \\ 0} &= \vect{\frac{-3}{\sqrt{10}} \\ \frac{1}{\sqrt{10}} \\ 0}\checkmark 
+        \\
+        A\vect{\frac{-1}{\sqrt{110}} \\ \frac{-3}{\sqrt{110}} \\\frac{10}{\sqrt{110}}} &= \vect{\frac{-1}{\sqrt{110}} \\ \frac{-3}{\sqrt{110}} \\\frac{10}{\sqrt{110}}} 
+        \checkmark
+        \\
+        A\vect{\frac{1}{11} \\ \frac{-3}{11} \\ \frac{-1}{11}} &= \vect{\frac{-8}{11} \\ \frac{6}{11} \\ \frac{-10}{11}} \times
+    \end{align}
+
+    So, the last vector is no longer an eigenvector. This is because we mixed vectors with different eigenvalues. So, we cannot guarantee that an orthonormal basis of eigenvectors exists. But what condition guarantees this?
+    
+    \section{Diagonalization}
+
+    Let's say that there exists an orthonormal basis of eigenvectors for $A$. Let $P$ be the matrix with these basis vectors as columns. Let $D$ be the diagonal matrix with $D_{ii} = \lambda_i \iff \bfv_i$ and zeros otherwise. Following directly from the definition of an eigenvector.
+
+    \[AP = PD\]
+    This gives the form for diagonalization:
+    \begin{align}
+        A = PDP^{-1}
+    \end{align}
+
+    In our case, since the columns of $P$ are orthonormal, we have $P^{-1} = P^T$ so $A = PDP^T$. Consider
+
+    \[A^T\]
+    \[(PDP^T)^T\]
+    \[(P^T)^T D^T P^T\]
+    \[PDP^T\]
+    \[=A\]
+    Thus, $A = A^T$. So, if there is an orthonormal basis of eigenvectors for $A$, then $A$ must be symmetric.
+
+
+
+   
+\end{document}
