@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+\usepackage{base}
+
+\newcommand{\pj}{\text{\normalfont proj}}
+
+\author{Matteo Paz, Dylan Rupel}
+\date{April 17, 2024}
+\title{Orthogonal Projections}
+
+\begin{document}
+    \maketitle{}
+    \noindent
+
+    \emph{The orthogonal projection is a way to find the closest point in a subspace to any point in the whole space. You only need an orthonormal basis of the subspace to carry out the operation.} \vspace{1.5em}
+
+    Given a basis for a subspace $W \in \RR^n$, the Gram-Schmidt process produces an orthonormal basis $\bfw_1, \ldots, \bfw_k$.
+
+    \begin{definition}
+        The orthonormal projection $\pj_W(\bfx)$ for $\bfx \in \RR^n$ is
+        \[\bfw_1(\bfw_1 \cdot \bfx) + \cdots + \bfw_k(\bfw_k \cdot \bfx)\]
+        Which can be rewritten as
+        \[\bfw_1\bfw_1^T \bfx + \cdots + \bfw_k\bfw_k^T\bfx\]
+        \[(\bfw_1\bfw_1^T + \cdots + \bfw_k\bfw_k^T)\bfx\]
+    \end{definition}
+
+\textbf{By this definition, we then know that $\pj$ is a linear transformation, with matrix $QQ^T$ where $Q = \vect{\bfw_1 | \cdots | \bfw_k}$ and $\bfw_i$ are column vectors.}
+
+\begin{proposition}
+    $\pj_W(\bfx)$ is the vector in $W$ closest to $\bfx$
+\end{proposition}
+\pf Firstly notice that $\pj_W(\bfx) - \bfx \in W^\perp$:
+\[\bfw_i \cdot (\bfx - \pf_W(\bfx))\]
+\[\bfw_i \cdot \bfx - (\bfw_i \cdot \bfw_i)(\bfw_i \cdot \bfx)\]
+\[\bfw_i \cdot \bfx - \bfw_i \cdot \bfx = 0\]
+Thus $\pj_W(\bfx) - \bfx \in W^\perp$.
+Since this vector is perpendicular to $W$, we can use the pythagorean theorem. Choose any other vector $\bfv \in W$. Now:
+\[|\bfx - \bfv|^2 = |\bfx - \pj_W(\bfx)|^2 + |\pj_W(\bfx) - \bfv|^2\]
+Thus given $v \not = \pj_W(\bfx)$, we have $|\bfx-\bfv|^2 > |\bfx - \pj_W(\bfx)|^2$. So $\pj_W(\bfx)$ is closer to $\bfx$ than any other element of $W$.
+
+\section*{Normal Equations}
+
+Lets say that we want to find a solution to the equation $A\bfx = b$. However, it might not be the case that $b \in \text{im} A$. Thus there might not exist any exact solution to this, but what is the closest we can get? \\
+
+Let $\hat{b}$ be this point. Thus $\hat{b} = \pj_{\text{im}(A)}(b)$. Consider the difference $b - \hat{b}$. As proven earlier, this must be in the orthogonal complement of the subspace:
+\[b - \hat{b} \in \text{im}(A)^\perp\]
+This means that it also lies in the null space of the transpose.
+\[A^T(b - \hat{b}) = 0\]
+\[A^T b = A^T \hat{b}\]
+If $x$ is the least-squares solution, then we should get
+\[A\bfx = \hat{b}\]
+\[A^T A \bfx = A^T \hat{b} = A^T b\]
+\begin{align}
+    A^T A \bfx = A^T b \\
+    \bfx = (A^T A)^{-1}A^T b
+\end{align}
+
+Equation number (1) are called the \emph{normal equations}, and are general. Equation number (2) allows for the evaluation of the exact solution but requires that $A^T A$ is invertible.
+
+
+\end{document}

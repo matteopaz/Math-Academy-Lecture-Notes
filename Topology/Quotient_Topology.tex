@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+\usepackage{base}
+
+\author{Matteo Paz, Dylan Rupel}
+\date{March 5, 2024}
+\title{The Quotient Topology}
+
+\begin{document}
+\maketitle
+
+\section{The Quotient Topology and Examples}
+\begin{definition}
+    Let $X$ be a topological space and suppose $\sim$ is an equivalence relation on $X$. Then there is a natural surjective function $f: X \to X / \sim$ onto the set of equivalence classes $[x]_\sim$. The \underline{quotient topology} is the finest topology for which $f$ is continuous. This can be achieved exactly by defining $U \subseteq X / \sim$ open if and only if $f^{-1}(U) = \{x \in X : [x] \in U\}$ is open in $X$.
+\end{definition}
+
+\begin{example}
+    Consider the unit sphere $S_3$ in $\RR^3$, and the disjoint union of two unit discs $S'_2$ in $\RR^2$, after identifying the boundaries of the disc with $\sim$.
+\end{example}
+
+If we take the intersection of an open ball in $\RR^3$ with $S_3$, we get a 2 dimensional ball on the surface of $S_3$, which are exactly the open sets of $S'_2$ - 2D balls. By identifying the boundaries of the two discs, we connect the equator of the sphere. Thus, these spaces are homeomorphic, and $S_3$ is the quotient topology for $S'_2 \sqcup S'_2 / \sim$
+
+\begin{example}
+    Consider $[0,1] / \sim$ where $0 \sim 1$.
+\end{example}
+
+This essentially wraps the interval $[0,1]$ into a circle of circumference $1$. Open intervals on the image about $0$ become half open in the domain: $[0,a) \sqcup (b, 1]$.
+
+\begin{example}
+    Consider $\RR$. Take $\mathbb{Z}$ to be one equivalence class, identifying them all together, and leaving all non integers alone.
+\end{example}
+
+    Similar to example 2, this creates a circle for every interval $[z,z+1]$. However, each circle does not identify except at its point $z$. Thus it creates a wedge of infinitely many circles, all meeting only at $0$. Any open set about that $0$ point will include an open interval about every point in $\mathbb{Z}$ in the preimage.
+
+\section{Quotient of a Topological Space Under a Group Action}
+
+\begin{definition}
+    An action of a group $G$ on a set $X$ is $*: G \times X \to X$ such that
+    \begin{enumerate}
+        \item $g.(h.x) = (gh). x$ for all $g,h \in G$ and $x \in X$ 
+        \item $e . x = x$ for all $x \in X$
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    A group $G$ is a topological group if it has a topology such that with $g \ in G$, the maps $\phi_g(h) = gh$ and $\rho_g(h) = hg$ are continuous.
+\end{definition}
+
+Lets see some topological groups.
+\begin{enumerate}
+    \item To start, any discrete / finite group is a topological group. With the discrete topology, any function is continuous, because all preimages are open: $(\mathbb{Z}, +), (S_n, \circ), D_n, (\mathbb{Z}_n, +)$
+    \item $GL_n(\RR), GL_n(\mathbb{C})$
+    \item Any subgroup of a topological group
+\end{enumerate}
+
+\begin{definition}
+    Let $G$ be a topological group and $X$ a topological space. Then $G$ has a continuous action on $X$ if there exists $*: G \times X \to X$ so that $\phi_g: X \to X$ is a continuous function.
+\end{definition}
+
+\end{document}

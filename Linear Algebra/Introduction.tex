@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+\usepackage{base}
+
+
+\author{Matteo Paz, Dylan Rupel}
+\date{March 20th, 2024}
+\title{Introduction | Dot Product, Length and Orthogonality}
+
+\begin{document}
+    \maketitle{}
+    \noindent
+
+    Recall the dot product between two vectors. For this unit, we will primarily consider vectors to be column vectors, or matrices of size $N \times 1$.
+    \begin{definition}
+        Given two column vectors $\bfv, \bfw$, their dot product denoted $\bfv \cdot \bfw$ is given by the form $\bfv_1\bfw_1 +\cdots + \bfv_n\bfw_n$, but defined by the notation 
+        \[\bfv^T \bfw\]
+    \end{definition}
+
+    \begin{proposition}
+        The dot product gives a positive definite symmetric bilinear form.
+    \end{proposition}
+
+    First, we need to define these terms.
+    \begin{definition}
+        A bilinear form is a function $T: \RR^n \times \RR^n \to \RR$ which is linear in each component separately:
+        \begin{itemize}
+            \item $T(\lambda \bfv, \bfw) = \lambda T(\bfv,\bfw) = T(\bfv, \lambda \bfw)$
+            \item $T(\bf{u}, \bfv + \bfw) = T(\bf{u}, \bfv) + T(\bf{u}, \bfw)$
+            \item $T(\bf{u} +\bfv, \bfw) = T(\bf{u}, \bfw) + T(\bfv, \bfw)$
+        \end{itemize}
+
+        It is symmetric if $T(\bfv, \bfw) = T(\bfw, \bfv)$. \\
+        It is positive semidefinite if $T(\bfv, \bfv) \geq 0$. \\
+        It is positive definite if $T(\bfv, \bfv) \geq 0$ with equality iff $\bfv = \bf{0}$
+
+        \vspace{1em}
+        We typically denote a bilinear form via $\langle \bfv, \bfw \rangle$. It can always be formulated as a square matrix $A \in \RR^{n \times n}$, a way of multiplying two vectors in the space:
+        \[\langle \bfv, \bfw \rangle = \bfv^T A \bfw\]
+    \end{definition}
+
+    Now, we can notice that the dot product is simply a bilinear form with $A =$Id. It is clearly symmetric, and since we are summing squares ($\bfv \cdot \bfv = \bfv_1^2 +\cdots$) it is obviously always greater than or equal to zero, with equality when $\bfv = 0$. 
+
+    \begin{definition}
+        The length or norm of a vector $\bfv$ is defined to be
+        \[\sqrt{\bfv \cdot \bfv}\]
+    \end{definition}
+
+    \vspace{5em}
+
+    How can we define the angle of vectors in this space? We only need an inner product, here the dot product. \vspace{1em}
+
+    Consider vectors $\bfv, \bfw$. Then $(\bfv, \bfw, \bfv - \bfw)$ forms a triangle. By the law of cosines, having $\theta \sim \bfv, \bfw$:
+    \[|\bfv - \bfw|^2 = |\bfv|^2 + |\bfw|^2 - 2|\bfv||\bfw|\cos(\theta)\]
+    We know that $|\bfv - \bfw|^2 = (\bfv - \bfw) \cdot (\bfv - \bfw)$. By linearity we have then $|\bfv|^2 + |\bfw|^2 - 2|\bfv||\bfw|$. Substitution:
+    \[|\bfv|^2 + |\bfw|^2 - 2(\bfv \cdot \bfw) = |\bfv|^2 + |\bfw|^2 - 2|\bfv||\bfw|\cos(\theta)\]
+    Finally we then have 
+    \[\cos(\theta) = \frac{\bfv \cdot \bfw}{|\bfv||\bfw|}\]
+    From this we arrive at our notion of angle. Notice that this angle is only $\pi / 2$ when $\bfv \cdot \bfw = 0$. Thus this is our notion of \textbf{orthogonality}.
+
+    \begin{proposition}
+        Let $U = \{\bfw_1, \cdots, \bfw_k\}$ be an orthogonal basis for $W \subseteq \RR^n$ and $V = \{\bfv_1, \cdots, \bfv_l\}$ be an orthogonal basis for $W^\perp$. Then $U \cup V$ is an orthogonal basis for $\RR^n$.
+    \end{proposition}
+
+    \pf Let $\bf{x} \in \RR^n$. If it can be written as $\bf{x} = c_1\bfw_1 + \cdots + c_k\bfw_k + d_1 \bfv_1 + \cdots + d_l\bfv_l$, then $\bf{x} \cdot \bfw_i = c_i \bfw_i \cdot \bfw_i$. Thus $c_i = \frac{\bf{x} \cdot \bfw_i}{\bfw_i \cdot \bfw_i}$. This is useful to find the component in $W$. \vspace{1em}
+
+    Now, consider the vector $\bfx - \sum_i^k \frac{x\cdot \bfw_i}{\bfw_i \cdot \bfw_i}$. We want this to be in $W^\perp$. Thus, dot with arbitrary $\bfw_j$:
+    \[\left(\bfx - \sum_i^k \frac{\bfx\cdot \bfw_i}{\bfw_i \cdot \bfw_i} \bfw_i\right) \cdot \bfw_j = 
+    \bfx \cdot \bfw_j - \sum_i^k \frac{\bfx \cdot \bfw_i}{\bfw_i \cdot \bfw_i}\bfw_i\cdot \bfw_j
+    \]
+    \[=^{i = j} \bfx \cdot \bfw_j - \frac{\bfx \cdot \bfw_j}{\bfw_j \cdot \bfw_j}\bfw_j \cdot \bfw_j\]
+    \[=0\]
+    Thus $\bfx - \sum_i^k \frac{x\cdot \bfw_i}{\bfw_i \cdot \bfw_i} \in W^\perp$. Thus it can be written as a linear combination $d_i$ of vectors in $V$. Thus
+    \[\bfx \in \text{Span}\{U \cup V\}\]
+    Since all vectors in $U \cup V$ are orthogonal, that set is linearly independent. Thus $U \cup V$ is a basis of $\RR^n$. Then $k+l = n$. \done
+
+    \section{The Gram-Schmidt Process}
+    The Gram-Schmidt Process allows us to get an orthonormal basis from any basis. It works in steps. First, consider this basis of $\RR^2$:
+    \[\set{\vect{2 \\ 2}, \vect{1 \\ 3}}\]
+    The steps are as follows
+    \begin{enumerate}
+        \item For the first vector, normalize it: $\vect{2 \\ 2} \to \vect{1/\sqrt{2} \\ 1/\sqrt{2}}$
+        \item Remove the component of this first vector $\bfv_1$ from all other vectors ahead of it. $\bfw - (\bfw \cdot \bfv)\bfv$: $\vect{1 \\ 3} - 2\sqrt{2}\vect{1/\sqrt{2} \\ 1/\sqrt{2}} = \vect{-1 \\ 1}$
+        \item Repeat (1), (2) going down the list of vectors, until all have been normalized: $\vect{-1 \\ 1} \to \vect{-1/\sqrt{2} \\ 1/\sqrt{2}}$
+    \end{enumerate}
+    
+    Now we are left with $\set{\vect{1/\sqrt{2} \\ 1/\sqrt{2}}, \vect{-1/\sqrt{2} \\ 1/\sqrt{2}}}$, an orthonormal basis.
+\end{document}
