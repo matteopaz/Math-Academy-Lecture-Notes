@@ -1,0 +1,109 @@
+\documentclass{article}
+\usepackage{amsmath, amsfonts}
+\usepackage{base}
+
+
+\author{Matteo Paz, Dylan Rupel}
+\date{Apr 23th, 2024}
+\title{Symmetric and Hermetian Matricies}
+
+\begin{document}
+    \maketitle{}
+    \noindent
+
+    \begin{definition}
+        Some matrix $M$ is symmetric if $M^T = M$.
+    \end{definition}
+
+    Consider the dot product of two vectors $\bfv \cdot \bfw$, we know that this is equivalent to matrix multiplication $\bfv^T \bfw$.
+    If we have $A$ symmetric, then from $(A\bfv) \cdot \bfw$ follows $\bfv^T A^T \bfw = \bfv^T A \bfw = \bfv \cdot (A\bfw)$. So this lets matrix multiplication be preserved across dot products in a way. The bilinear form becomes symmetric. \vspace{1em}
+
+    Lets reconsider the validity of the dot product. Let $x, y \in \CC^n$, say $x = \vect{1 + i} \in \CC^1$. We traditionally define in the real vector spaces a \textbf{real} magnitude $|x| = \sqrt{x \cdot x}$. However, we here have that $x \cdot x = 2i$, which does not produce a real magnitude. Instead, if we use the complex conjugate
+    \[\langle x, y \rangle = x \cdot \overline{y}\]
+    We have that $\overline{\vect{1 + i}} \cdot \vect{1 + i} = 2 = |x|^2 \checkmark$. So, this seems to be the way to define the inner product in general, since any complex number multiplied by its conjugate becomes real. \vspace{1em}
+
+    Consider the product $\langle x, Ay \rangle$. Then we are evaluating 
+    
+    \[x \cdot \overline{(Ay)} = x \cdot \overline{A}\overline{y} = x^T \overline{A} \overline{y} = (\overline{A}^T x) \cdot \overline{y}\]
+    \[\langle \overline{A}^T x, y\rangle\]
+    Thus if $\overline{A}^T = A$, we have the previous notion of a symmetric matrix once again.
+    \begin{definition}
+        The Hermetian of a matrix $A$ is denoted by $A^H$, with
+        \[A^H = \overline{A}^T\]
+        A matrix is said to be hermition if $A = A^H$.
+    \end{definition}
+
+    \section{Orthogonal Eigenvectors Revisited}
+    \begin{proposition}
+        Let $A$ be a hermetian matrix. Then eigenvectors with distinct eigenvalues are orthogonal.
+    \end{proposition}
+
+    \pf Let $x$ and $y$ be eigenvectors of $A$ with distinct respective eigenvalues $\lambda, \mu$. Then $Ax = \lambda x$ and $Ay = \mu y$.
+    \[\langle Ax, y \rangle = \lambda \langle x, y \rangle\]
+    \[\langle x, Ay \rangle = \mu \langle x, y \rangle\]
+    Since $A$ is hermitian, $\langle Ax, y \rangle = \langle x, Ay \rangle$.
+    Thus $\lambda\langle x, y \rangle = \mu\langle x, y \rangle$.
+    \[(\lambda - \mu)\langle x, y \rangle = 0\]
+    Since $\lambda$ and $\mu$ are distinct, we have that $x \perp y$. \vspace{1em}
+
+    The effect of this is that we can run the Gram-Schmidt process on each basis for eigenspaces separately, and combine them to still remain with an orthogonal collection, given that the matrix is hermitian. The only problem left is that of geometric multiplicity vs algebraic multiplicity for particular eigenvalues: we need to guarantee we can acquire sufficiently many vectors for the dimension of the entire vector space. We only need one more tool: \vspace{1em}
+
+    Let $\bfw_1, \ldots, \bfw_n$ be an orthonormal basis for $\CC^n$. Recall that in a real vector space, orthogonal matrices (matrices with orthonormal columns) had $M^{-1} = M^T$, because only the first row pairs with the first column to produce a $1$ in that entry for the final matrix of $MM^T$. There is a similar notion for complex matrices.
+    \begin{definition}
+        A matrix $U \in \operatorname{Mat}_n(\CC)$ is unitary if $U^{-1} = \overline{U}^T$
+    \end{definition}
+    Since $\bfw_1, \ldots, \bfw_n$ is an orthonormal set, we know that $U = \begin{bmatrix}
+        \bfw_1 & | & \cdots & | & \bfw_n
+    \end{bmatrix}$
+    is a unitary matrix.
+
+    \begin{theorem}
+        If $A$ is hermitian, then there exists an orthonormal basis of eigenvectors for $A$.
+    \end{theorem}
+    \pf
+    Let $\bfw_1, \ldots, \bfw_k$ be an orthonormal basis for some eigenspace $V_\lambda = \Nul(A-\lambda I)$. Complete this to an orthonormal basis $\bfw_1, \ldots, \bfw_k, \bfw_{k+1}, \ldots, \bfw_n$ for $\CC^n$, where the rest of the vectors are not necessarily eigenvectors. Out of this, construct a matrix $U$ with this basis as its columns.
+    \[U = \begin{bmatrix}
+        \bfw_1 & \cdots & \bfw_k & \bfw_{k+1} & \cdots & \bfw_n
+    \end{bmatrix}\]
+    Now, if we apply left multiplication by the original matrix $A$, given that $U$ must be unitary:
+    \[AU = U\begin{bmatrix}
+        \lambda I_k & B \\
+        \mathbf{0} & C
+    \end{bmatrix}\]
+    \[U^H AU = \begin{bmatrix}
+        \lambda I_k & B \\
+        \mathbf{0} & C
+    \end{bmatrix}\]
+    Observe that $(U^H AU)^H = U^H AU$. Thus:
+    \[\begin{bmatrix}
+        \lambda I_k & B \\
+        \mathbf{0} & C
+    \end{bmatrix} = \begin{bmatrix}
+        \overline{\lambda} I_k & \mathbf{0} \\
+        B & C^H
+    \end{bmatrix}\] 
+    Thus $B = 0$ and $C$ is hermetian always. In order to inspect the multiplicities, take the determinant:
+    \[\det{A - \lambda I_n} = \det({(A-\lambda I_n) U U^H}) = \det(U^H(A - \lambda I_n)U)\]
+    \[= \det(U^H AU - \lambda I_n)\]
+    \[= \det \begin{bmatrix}
+        (\lambda_0 - \lambda) I & \mathbf{0} \\
+        \mathbf{0} & B - \lambda I 
+    \end{bmatrix}\]
+    \[=(\lambda_0 - \lambda)^k \det(B-\lambda I)\]
+    Assume that the algebraic multiplicity of $\lambda_0$ is greater than the geometric multiplicity, meaning that we would not be able to find sufficiently many eigenvectors to span the entire space. Then, for the algebraic multiplicity to exceed $k$, $\lambda_0$ would have to be an eigenvalue for $B$ as we can see in the last equation. Our final step will produce a contradiction from this implication:
+
+    \[U^H AU \vect{0 \\ \vdots \\ 0 \\ v_1 \\ \vdots \\ v_l} = \begin{bmatrix}
+        \lambda_0 I & \mathbf{0} \\
+        \mathbf{0} & B
+    \end{bmatrix}\vect{0 \\ \vdots \\ 0 \\ v_1 \\ \vdots \\ v_l} = \lambda_0 \vect{0 \\ \vdots \\ 0 \\ v_1 \\ \vdots \\ v_l}\]
+    Hence
+    \[AU\vect{0 \\ \vdots \\ 0 \\ v_1 \\ \vdots \\ v_l} = \lambda_0 U \vect{0 \\ \vdots \\ 0 \\ v_1 \\ \vdots \\ v_l}\]
+    So 
+    \[U \vect{0 \\ \vdots \\ 0 \\ v_1 \\ \vdots \\ v_l} \in \Nul(A - \lambda_0 I)\]
+    However, 
+    \[U\vect{0 \\ \vdots \\ 0 \\ v_1 \\ \vdots \\ v_l} = v_1\bfw_{k+1} + \cdots + v_l\bfw_{n}\]
+    Thus this vector is perpendicular to the basis of the eigenspace, and cannot be in the eigenspace $\Nul(A - \lambda_0 I)$. So, we have a contradiciton. The seminal assumption to this was that algebraic multiplicity exceeds geometric multiplicity. Therefore, it will not. Thus, the dimensions of every eigenspace will sum to the dimension of the space. Finally, we can take the union of each orthonormal basis in each eigenspace to gain an orthonormal basis of eigenvectors for any hermetian matrix $A$.
+
+
+
+\end{document}
