@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{base}
+
+\author{Dylan Rupel, Matteo Paz}
+\date{May 8, 2024}
+\title{Differential Forms}
+
+\begin{document}
+\maketitle
+
+Let there be a function $f: \RR^n \to \RR$. What is its gradient?:
+\[\nabla f =\left\langle \frac{\partial f}{\partial x_1} \cdots \frac{\partial f}{\partial x_n} \right\rangle \]
+
+The gradient thus gives us a notion of the rate of change of the output $f$, per unit moved along each of the $x_i$ \textbf{basis} vectors.\footnote{Typically, the basis vectors are taken to be the standard euclidean basis of 1s and 0s, however the definition is exactly the same for any orthonormal basis.}
+
+However, lets say we want to measure the rate of change along some vector $v$ of our choice. A formulation using the traditional definition of a derivative gives:
+
+\[D_v f |_x = \lim\limits_{t \to 0} \frac{f(x + tv) - f(x)}{t}\]
+Which actually turns out to be equivalent to 
+\[\nabla f(x) \cdot v\]
+Thus, the gradient lets us evaluate the rate of change for any movement in the entire space.
+
+\section*{Differential Forms}
+
+Consider some $f: \RR^n \to \RR$ and some path parametrized by $s$: $x(s): \RR \to \RR^n$. By composition, we have $f(x(s)): \RR \to \RR$. Lets say we want to find the derivative of this: $\frac{df}{ds}$, notice we yield a single-dimension derivative rather than partials, this is significant:
+\[\frac{df}{ds} = \nabla f(x(s)) \cdot x'(s)\]
+\[\left\langle \frac{\partial f}{\partial x_1} \cdots \frac{\partial f}{\partial x_n} \right\rangle \cdot \left\langle \frac{dx_1}{ds} \cdots \frac{dx_n}{ds} \right\rangle\]
+\[\frac{df}{ds} = \frac{\partial f}{\partial x_1} \frac{dx_1}{ds} + \cdots + \frac{\partial f}{\partial x_n} \frac{dx_n}{ds}\]
+\[df = \frac{\partial f}{\partial x_1} dx_1 + \cdots \frac{\partial f}{\partial x_n} dx_n \]
+
+Notice this looks like a linear combination of $dx_i$. If we take these $dx_i$ to be formal basis vectors of a vector space spanned by them, then $df$ is a member of this space, where the gradient $\nabla f$ encodes its coefficients. Call this space $\Omega_1$.
+
+\subsection*{k-Form}
+Let $\Omega_1$ denote the vector space over $\mathcal{C}_\infty(\RR^n)$ spanned by $dx_1 \cdots dx_n$. 
+\end{document}

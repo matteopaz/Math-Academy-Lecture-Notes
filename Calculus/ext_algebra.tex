@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{base}
+\usepackage{amsmath, amssymb, amsfonts}
+
+\author{Dylan Rupel, Matteo Paz}
+\date{May 7, 2024}
+\title{The Exterior Algebra}
+
+
+\begin{document}
+    \maketitle
+    \begin{definition}
+        Let $V$ be a vector space over $\RR$. \\
+        Define $\wedge^2 V$ as the vector space spanned by elements $v \w w$ for $v,w \in V$ subject to the properties:
+        \begin{enumerate}
+            \item $c(v \w w) = (cv) \w w = v \w (cw)$
+            \item $v \w w = - w \w v$
+            \item $v \w (w + x) = v \w w + v \w x$
+        \end{enumerate}
+    \end{definition}
+
+    A notable property of this vector space is that wedges of parallel vectors and only parallel vectors are zero:
+    \[\lambda v = w\]
+    \[v \w w = - w \w v\]
+    \[\lambda (v \w v) = - \lambda (v \w v)\]
+    \[2\lambda(v \w v) = 0\]
+    \[v \w (\lambda v) = 0\]
+    \[v \w w = 0\]
+
+    \subsection{Bases}
+    Fix a basis $e_1, \ldots, e_n$ of $V$. Now, write $v = v_1e_1 + \cdots + v_ne_n$, and $w = w_1e_1 + \cdots + w_ne_n$. Consider $v \w w$:
+    \[(v_1e_1 + \cdots + v_ne_n) \w ( w_1e_1 + \cdots + w_ne_n)\]
+    The distribution and collecting of terms is left as an exercise. However, the ultimate result is that:
+    \[v \w w = \sum_{i < j} (v_i w_j - w_j v_i) e_i \w e_j\]
+    By inspection, the wedge $v \w w$ then encodes all determinants of all $2 \times 2$ minors of the matrix:
+    \[\begin{bmatrix}
+        v_1 & w_1 \\
+        \vdots & \vdots \\
+        v_n & w_n
+    \end{bmatrix}\]
+    Through its coefficients in the basis. This fact is general for any $\w^k V$.
+
+    \subsection{General Exterior Powers}
+
+    \begin{definition}
+        $\w^k V$ is the vector space over $\RR$ spanned by $v_1 \w \cdots \w v_k$ for $v_i \in V$ subject to the following:
+        \begin{enumerate}
+            \item $c(v_1 \w \cdots \w v_k) = v_1 \w \cdots \w cv_i \w \cdots v_k$
+            \item Any odd permutation $\tau \in S_k$ with any $(v_1 \w \cdots \w v_k) \in \w^k V$ yields $v_1 \w \cdots \w v_k = - v_{\tau(1)} \w \cdots \w v_{{\tau(k)}}$
+            \item $v_1 \w \cdots \w (v_i + w_i) \w \cdots \w v_k = v_1 \w \cdots \w v_i \w \cdots \w v_k + v_1 \w \cdots \w w_i \w \cdots \w v_k$
+        \end{enumerate}
+    \end{definition}
+\end{document}

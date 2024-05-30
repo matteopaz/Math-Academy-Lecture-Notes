@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{base}
+
+\author{Dylan Rupel, Matteo Paz}
+\date{May 10, 2024}
+\title{Notions of Derivative in $\RR^3$}
+
+
+\begin{document}
+\maketitle
+\subsection*{Gradient}
+Let $f: \RR^3 \to \RR$ be a differentiable function. Then $\nabla f = \lrangle{\pdif{f}{x_1}, \pdif{f}{x_2}, \pdif{f}{x_3}}$. For notational convenience we denote $\nabla = \lrangle{\pdif{}{x}, \pdif{}{y}, \pdif{}{z}}$. Somehow, by applying $\nabla$, we map from functions to vector fields, where every point in the space is assigned not a value but a vector.
+
+\[f \xrightarrow{nabla} F\]
+\[\text{functions} \xrightarrow{nabla} \text{vector fields}\]
+
+Consider the level curve for $f(x) = c$ and any gradient $\nabla f |_x$. Any movement with a component tangent to the level curve produces no change to the value of the function. Thus, $\nabla f |_x$ is orthogonal to the level surface. $(\nabla f|_x)^\perp$ is used to find the tangent space to the level curve. 
+
+\subsection*{Vector Fields}
+
+Consider $F: \RR^3 \to \RR^3$ a vector field.
+\begin{itemize}
+    \item Cross with $\nabla$:
+        \[\nabla \times F = \det \begin{bmatrix}
+            i & j & k \\
+            \pdif{ }{x} & \pdif{ }{y} & \pdif{ }{z} \\
+            f_1 & f_2 & f_3
+        \end{bmatrix}\]
+        \[= \langle \pdif{f_3}{y} - \pdif{f_2}{z}, \pdif{f_1}{z} - \pdif{f_3}{x}, \pdif{f_2}{x} - \pdif{f_1}{y} \rangle \]
+        This is curl, where the direction of the vector is the axis of rotation and the magnitude is the rate of rotation.
+    \item Dot with $\nabla$:
+        \[\nabla \cdot F = \pdif{f_1}{x} + \pdif{f_2}{y} + \pdif{f_3}{z}\]
+        This is divergence, where the direction of the vector is the direction of the flow and the magnitude is the rate of flow.
+
+\end{itemize}
+
+
+\end{document}

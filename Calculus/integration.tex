@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{base}
+\usepackage{amsmath, amsfonts, amssymb}
+
+\author{Dylan Rupel, Matteo Paz}
+\date{May 13, 2024}
+\title{Integration}
+
+\begin{document}
+\maketitle
+
+\section*{Introduction}
+Classically, we define the integral in one dimension as a limit of a riemann sum:
+\begin{align}
+    \int f(x) dx = \lim\limits_{\Delta x \to 0} \sum_{i=1} f(x_i) \Delta x
+\end{align}
+
+This is essentially a mapping from a function and a 1D interval, to a 2D measure of area under a curve. This is done by taking $\Delta x \sim dx$ as the width, and $f(x)$ as the height, then multiplying them. \vspace{1em}
+
+In general if we have a function $f: \RR^n \to \RR$, we can define the integral over some $n$-dimensional domain $D$ as a limit of a sum:
+\begin{align}
+    \int_D f dx_1 \cdots dx_k = \lim\limits_{\Delta x_j \to 0} \sum_{i=1} f \Delta x_1 \cdots \Delta x_k
+\end{align}
+
+Thus, we express the measure of a $k+1$ dimensional volume over a $k$ dimensional domain.
+
+\section*{Differential Forms and Integrals}
+Consider the $k$-form $\omega \in \Omega_k(\RR^n) = \wedge^k\Omega_1(\RR^n)$. Thus $\omega$ has dimension ${n \choose k}$, and can be written as:
+\[\omega = \sum\limits_{I = \set{i_1 < \cdots < i_k}} \omega_I dx_I\]
+Where $dx_I := dx_{i_1} \wedge \cdots \wedge dx_{i_k}$, and $\omega_I$ are the coefficients of the form, in $\mathcal{C}^\infty (\RR^n)$. For our case, we will only be considering $\omega$ which are compactly supported. This means that $\omega$ (equivalently all $\omega_I$) only takes a nonzero value in a closed and bounded subset of $\RR^n$. \vspace{1em}
+
+\subsection*{Integration of Differential Forms}
+\textbf{Goal:} Define the integral $\int_D \omega$ for a compactly supported $k$-form $\omega$ over a $k$-dimensional domain $D \subset \RR^n$.
+\end{document}
